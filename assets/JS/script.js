@@ -10,11 +10,18 @@ var generateBtn = document.querySelector("#generate");
 
 // Confirm options required for generating password.
 function confirmOptions(){
-    //coverting string to integer of the input value.
-    var passwordLength = parseInt(prompt('Enter Length of password . It should be between a minimum of 8 characters and maxiumum of 128 characters:'), 10);
+
+    //capture the lenght of password and convert input string to integer.
+    var length = prompt('Enter Length of password . It should be between a minimum of 8 characters and maxiumum of 128 characters:');
+    var passwordLength = parseInt(length, 10);
     
+    //check if there was any input or null
+    if (length === null) {
+        return null;
+    }
+
     if (passwordLength === null || passwordLength === "") {
-      return null;
+        return null;
     }
     
     if (Number.isNaN(passwordLength)) {
@@ -29,7 +36,7 @@ function confirmOptions(){
         var confirmSpecialcharacters = confirm('Do you want to include Special characters?');
     } else {
         alert('Invalid Length! Please choose between a minimum of 8 characters and maxiumum of 128 characters.');
-        return null;
+        return;
     }
   
     return {
@@ -50,11 +57,16 @@ function confirmOptions(){
     var generatedPassword = "";
     var tempCharacter = "";
   
-    //check if the options are defined.
+    //check if options are defined.
+    if (typeof getOptions === 'undefined'){
+        return null;
+    }
+
+    //check if the options are empty or null.
     if (getOptions === null || getOptions === "") {
       return null;
     }
-  
+
     //check if atleast one options is selected.
     if (!getOptions.confirmUppercase && !getOptions.confirmLowercase && !getOptions.confirmNumbers && !getOptions.confirmSpecialcharacters) {
       alert("Apart from length, please confirm atleast one option to generate password");
